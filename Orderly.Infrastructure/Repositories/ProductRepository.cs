@@ -24,7 +24,23 @@ namespace Orderly.Infrastructure.Repositories
         {
             return await _dbContext.Products
                 .AsNoTracking()
+                .Where(p => p.IsActive && !p.IsDeleted)
                 .ToListAsync(cancellationToken);
+        }
+
+        public async Task<Product?> GetByIdAsync(int id, CancellationToken cancellationToken)
+        {
+            return await _dbContext.Products
+                .AsNoTracking()
+                .Where(p => p.IsActive && !p.IsDeleted)
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+        }
+
+        public async Task<Product?> GetByIdForUpdateAsync(int id, CancellationToken cancellationToken)
+        {
+            return await _dbContext.Products
+                .Where(p => p.IsActive && !p.IsDeleted)
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Orderly.Application.Interfaces;
 using Orderly.Application.Interfaces.Repositories;
 
 namespace Orderly.Application.Features.Products.Queries.GetProducts
