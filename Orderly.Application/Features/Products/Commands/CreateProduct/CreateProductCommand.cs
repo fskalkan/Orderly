@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace Orderly.Application.Features.Products.Commands
+namespace Orderly.Application.Features.Products.Commands.CreateProduct
 {
-    public class CreateProductCommand : IRequest<int>
+    public class CreateProductCommand : IRequest<CreateProductResponse>
     {
         public string Name { get; set; } = string.Empty;
 
