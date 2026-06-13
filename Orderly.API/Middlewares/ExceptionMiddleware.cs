@@ -31,22 +31,33 @@ public class ExceptionMiddleware
     }
 
     private static async Task HandleExceptionAsync(
-        HttpContext context,
-        Exception exception)
+    HttpContext context,
+    Exception exception)
     {
         context.Response.ContentType = "application/json";
 
         context.Response.StatusCode = exception switch
         {
+            AppValidationException => StatusCodes.Status400BadRequest,
             NotFoundException => StatusCodes.Status404NotFound,
             BadRequestException => StatusCodes.Status400BadRequest,
             _ => StatusCodes.Status500InternalServerError
         };
 
-        var response = new
+        object response = exception switch
         {
-            statusCode = context.Response.StatusCode,
-            message = exception.Message
+            AppValidationException validationException => new
+            {
+                statusCode = context.Response.StatusCode,
+                message = validationException.Message,
+                errors = validationException.Errors
+            },
+
+            _ => new
+            {
+                statusCode = context.Response.StatusCode,
+                message = exception.Message
+            }
         };
 
         var json = JsonSerializer.Serialize(response);

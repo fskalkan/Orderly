@@ -6,6 +6,9 @@ using Orderly.Infrastructure.Data;
 using Orderly.Infrastructure.Repositories;
 using Scalar.AspNetCore;
 using Orderly.API.Middlewares;
+using FluentValidation;
+using MediatR;
+using Orderly.Application.Common.Behaviors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,9 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Orderly.Application.AssemblyReference).Assembly);
 });
+
+builder.Services.AddValidatorsFromAssembly(typeof(Orderly.Application.AssemblyReference).Assembly);
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
