@@ -33,7 +33,8 @@ namespace Orderly.Application.Features.Products.Commands
                 Id = createdProduct.Id,
                 Name = createdProduct.Name,
                 Price = createdProduct.Price,
-                StockQuantity = createdProduct.StockQuantity
+                StockQuantity = createdProduct.StockQuantity,
+                CreatedAt = createdProduct.CreatedAt
             };
         }
     }

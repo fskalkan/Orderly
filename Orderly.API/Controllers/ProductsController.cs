@@ -28,8 +28,9 @@ namespace Orderly.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] GetProductsQuery query, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetProducts(CancellationToken cancellationToken)
         {
+            var query = new GetProductsQuery();
             var result = await _mediator.Send(query, cancellationToken);
             return Ok(result);
         }
