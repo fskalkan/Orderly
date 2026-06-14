@@ -15,8 +15,4 @@
     <ProjectReference Include="..\Orderly.Domain\Orderly.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Orders\Queries\" />
-  </ItemGroup>
-
 </Project>
