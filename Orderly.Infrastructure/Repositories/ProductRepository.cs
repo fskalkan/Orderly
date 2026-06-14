@@ -42,5 +42,12 @@ namespace Orderly.Infrastructure.Repositories
                 .Where(p => p.IsActive && !p.IsDeleted)
                 .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
         }
+
+        public async Task<List<Product>> GetByIdsForUpdateAsync(List<int> productIds, CancellationToken cancellationToken)
+        {
+            return await _dbContext.Products
+                .Where(p => productIds.Contains(p.Id) && p.IsActive && !p.IsDeleted)
+                .ToListAsync(cancellationToken);
+        }
     }
 }

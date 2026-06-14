@@ -7,6 +7,7 @@ namespace Orderly.Application.Interfaces.Repositories
         Task<Product> AddAsync(Product product, CancellationToken cancellationToken);
         Task<List<Product>> GetAllAsync(CancellationToken cancellationToken);
         Task<Product?> GetByIdAsync(int id, CancellationToken cancellationToken);
-        Task<Product?> GetByIdForUpdateAsync(int id, CancellationToken cancellationToken); 
+        Task<Product?> GetByIdForUpdateAsync(int id, CancellationToken cancellationToken);
+        Task<List<Product>> GetByIdsForUpdateAsync(List<int> productIds, CancellationToken cancellationToken);
     }
 }
