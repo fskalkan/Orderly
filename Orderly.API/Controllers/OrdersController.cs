@@ -1,8 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Orderly.API.Requests.Orders;
 using Orderly.Application.Features.Orders.Commands.CreateOrder;
+using Orderly.Application.Features.Orders.Commands.UpdateOrderStatus;
 using Orderly.Application.Features.Orders.Queries.GetOrderById;
 using Orderly.Application.Features.Orders.Queries.GetOrders;
+using Orderly.Domain.Enums;
 
 namespace Orderly.API.Controllers
 {
@@ -37,6 +40,18 @@ namespace Orderly.API.Controllers
         {
             var query = new GetOrderByIdQuery { Id = id };
             var result = await _mediator.Send(query, cancellationToken);
+            return Ok(result);
+        }
+
+        [HttpPut("{id}/status")]
+        public async Task<IActionResult> UpdateOrderStatus([FromRoute] int id, [FromBody] UpdateOrderStatusRequest request, CancellationToken cancellationToken)
+        {
+            var command = new UpdateOrderStatusCommand
+            {
+                Id = id,
+                Status = (OrderStatus)request.Status
+            };
+            var result = await _mediator.Send(command, cancellationToken);
             return Ok(result);
         }
     }

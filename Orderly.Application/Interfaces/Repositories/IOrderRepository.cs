@@ -9,5 +9,7 @@ namespace Orderly.Application.Interfaces.Repositories
         Task<List<Order>> GetAllAsync(CancellationToken cancellationToken);
 
         Task<Order?> GetByIdAsync(int id, CancellationToken cancellationToken);
+
+        Task<Order?> GetByIdForUpdateAsync(int id, CancellationToken cancellationToken);
     }
 }

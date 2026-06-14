@@ -41,5 +41,12 @@ namespace Orderly.Infrastructure.Repositories
                     .ThenInclude(oi => oi.Product)
                 .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
         }
+
+        public async Task<Order?> GetByIdForUpdateAsync(int id, CancellationToken cancellationToken)
+        {
+            return await _dbContext.Orders
+                .Where(o => !o.IsDeleted)
+                .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+        }
     }
 }
